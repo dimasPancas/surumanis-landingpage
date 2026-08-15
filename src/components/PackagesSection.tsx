@@ -2,10 +2,14 @@
 
 import { useRef } from 'react'
 import { motion } from 'motion/react'
-import { packagesData, generateWhatsAppUrl } from '@/data/siteData'
+import { packagesData } from '@/data/siteData'
 import { Check, Users, ChevronRight, ChevronLeft } from 'lucide-react'
 
-export default function PackagesSection() {
+interface PackagesSectionProps {
+  onSelectPackage: (packageId: string) => void
+}
+
+export default function PackagesSection({ onSelectPackage }: PackagesSectionProps) {
   const packages = packagesData
   const sliderRef = useRef<HTMLDivElement>(null)
 
@@ -128,18 +132,16 @@ export default function PackagesSection() {
                         </span>
                       </div>
 
-                      <a
-                        href={generateWhatsAppUrl(`Halo, saya tertarik dengan ${pkg.name} (Rp ${pkg.price.toLocaleString('id-ID')})`)}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        onClick={() => onSelectPackage(pkg.id)}
                         className={`w-full flex items-center justify-center gap-2 rounded-xl px-5 py-3 md:px-6 md:py-3.5 text-sm font-semibold transition-all duration-300 ${
                           pkg.is_popular
-                            ? 'bg-amber-500 text-white hover:bg-amber-600 shadow-sm'
-                            : 'bg-slate-900 text-white hover:bg-slate-800'
+                            ? 'bg-amber-500 text-white hover:bg-amber-600 shadow-sm hover:shadow-md hover:-translate-y-0.5'
+                            : 'bg-slate-900 text-white hover:bg-slate-800 hover:-translate-y-0.5'
                         }`}
                       >
                         Pilih Paket
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>

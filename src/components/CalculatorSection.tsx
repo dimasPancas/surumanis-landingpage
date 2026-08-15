@@ -6,7 +6,11 @@ import { packagesData, equipmentData, generateWhatsAppUrl } from '@/data/siteDat
 import { PackageItem, EquipmentItem } from '@/types/database'
 import { Plus, Minus, Calendar, User, Info, Wallet, AlertCircle } from 'lucide-react'
 
-export default function CalculatorSection() {
+interface CalculatorSectionProps {
+  preSelectedPackageId?: string
+}
+
+export default function CalculatorSection({ preSelectedPackageId }: CalculatorSectionProps) {
   const packages = packagesData
   const equipment = equipmentData
   const [name, setName] = useState('')
@@ -16,6 +20,13 @@ export default function CalculatorSection() {
   const [selectedEquipment, setSelectedEquipment] = useState<Record<string, number>>({})
 
   const selectedPackage = packages.find(pkg => pkg.id === selectedPackageId)
+
+  // Sync with pre-selected package from parent
+  useEffect(() => {
+    if (preSelectedPackageId) {
+      setSelectedPackageId(preSelectedPackageId)
+    }
+  }, [preSelectedPackageId])
 
   // Auto-adjust numPeople when package changes
   useEffect(() => {
@@ -96,7 +107,7 @@ export default function CalculatorSection() {
   const isFormValid = selectedPackage && date && name.trim() !== '';
 
   return (
-    <section className="py-24 bg-slate-50">
+    <section id="calculator" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
