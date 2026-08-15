@@ -220,24 +220,11 @@ export const galleryData: GalleryItem[] = [
     image_url: "https://awsimages.detik.net.id/community/media/visual/2024/06/21/pantai-surumanis-di-kebumen_169.jpeg?w=1200"
   },
   {
-    id: "gal-2",
-    title: "Golden Hour di Tepi Pantai",
-    category: "pemandangan",
-    image_url: "https://ik.imagekit.io/tvlk/blog/2025/06/Destinasi-Wisata-di-Kebumen-Pantai-Surumanis-Kebumen-Shutterstock.webp"
-  },
-  {
     id: "gal-3",
     title: "Panorama Laut Selatan",
     category: "pemandangan",
     image_url: "https://ik.imagekit.io/tvlk/blog/2025/06/Destinasi-Wisata-di-Kebumen-Pantai-Surumanis-Kebumen-Shutterstock.webp"
   },
-  {
-    id: "gal-4",
-    title: "Bintang Malam di Surumanis",
-    category: "pemandangan",
-    image_url: "https://via.placeholder.com/800x600/1e293b/94a3b8?text=Bintang+Malam"
-  },
-
   // Kategori: Aktivitas
   {
     id: "gal-5",

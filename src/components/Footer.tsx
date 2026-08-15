@@ -56,7 +56,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Pantai Surumanis Camp. Hak cipta dilindungi.
           </p>
           <p>
-            Dikelola oleh <span className="text-slate-400 font-medium">Pokdarwis Surumanis</span>
+            Dikelola oleh <span className="text-slate-400 font-medium">xxx</span>
           </p>
         </div>
       </div>

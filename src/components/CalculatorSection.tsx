@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
 import { packagesData, equipmentData, generateWhatsAppUrl } from '@/data/siteData'
 import { PackageItem, EquipmentItem } from '@/types/database'
-import { Plus, Minus, Calendar, User, Info, Wallet } from 'lucide-react'
+import { Plus, Minus, Calendar, User, Info, Wallet, AlertCircle } from 'lucide-react'
 
 export default function CalculatorSection() {
   const packages = packagesData
@@ -16,6 +16,16 @@ export default function CalculatorSection() {
   const [selectedEquipment, setSelectedEquipment] = useState<Record<string, number>>({})
 
   const selectedPackage = packages.find(pkg => pkg.id === selectedPackageId)
+
+  // Auto-adjust numPeople when package changes
+  useEffect(() => {
+    if (selectedPackage && selectedPackage.max_persons) {
+      // If current numPeople exceeds new package's max, adjust it
+      if (numPeople > selectedPackage.max_persons) {
+        setNumPeople(selectedPackage.max_persons)
+      }
+    }
+  }, [selectedPackageId])
 
   const toggleEquipment = (id: string, quantity: number) => {
     setSelectedEquipment(prev => ({
@@ -181,20 +191,54 @@ export default function CalculatorSection() {
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => setNumPeople(Math.max(1, numPeople - 1))}
-                    className="p-3 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
+                    disabled={numPeople <= 1}
+                    className={`p-3 rounded-full transition-colors ${
+                      numPeople <= 1
+                        ? 'bg-slate-50 text-slate-300 cursor-not-allowed'
+                        : 'bg-slate-100 hover:bg-slate-200'
+                    }`}
                   >
-                    <Minus color='black' size={20} />
+                    <Minus color={numPeople <= 1 ? '#cbd5e1' : 'black'} size={20} />
                   </button>
                   <span className="text-2xl font-bold text-slate-900 min-w-[3rem] text-center">
                     {numPeople}
                   </span>
                   <button
-                    onClick={() => setNumPeople(numPeople + 1)}
-                    className="p-3 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
+                    onClick={() => {
+                      const maxCapacity = selectedPackage?.max_persons || 999
+                      setNumPeople(Math.min(maxCapacity, numPeople + 1))
+                    }}
+                    disabled={selectedPackage && numPeople >= selectedPackage.max_persons}
+                    className={`p-3 rounded-full transition-colors ${
+                      selectedPackage && numPeople >= selectedPackage.max_persons
+                        ? 'bg-slate-50 text-slate-300 cursor-not-allowed'
+                        : 'bg-slate-100 hover:bg-slate-200'
+                    }`}
                   >
-                    <Plus size={20} color='black' />
+                    <Plus 
+                      size={20} 
+                      color={selectedPackage && numPeople >= selectedPackage.max_persons ? '#cbd5e1' : 'black'} 
+                    />
                   </button>
                 </div>
+                
+                {/* Helper text showing capacity */}
+                {selectedPackage && (
+                  <div className="flex items-start gap-2 mt-3">
+                    {numPeople >= selectedPackage.max_persons ? (
+                      <div className="flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-2 rounded-lg text-sm">
+                        <AlertCircle size={16} className="flex-shrink-0" />
+                        <span className="font-medium">
+                          Kapasitas maksimal paket ini adalah {selectedPackage.max_persons} orang
+                        </span>
+                      </div>
+                    ) : (
+                      <p className="text-slate-500 text-sm">
+                        Kapasitas: {numPeople} / {selectedPackage.max_persons} orang
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 

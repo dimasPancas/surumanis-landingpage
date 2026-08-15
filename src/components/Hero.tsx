@@ -31,23 +31,24 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center text-white pt-12 sm:pt-0">
         {/* Badge / Subtitle */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="inline-block mb-3 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs sm:text-sm font-medium tracking-wide"
         >
           Wisata & Camping Kebumen
-        </motion.div>
+        </motion.div> */}
 
         {/* Heading */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-3xl sm:text-5xl md:text-7xl font-bold font-serif mb-4 sm:mb-6 leading-tight tracking-tight"
+          className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold font-serif mb-4 sm:mb-6 leading-tight tracking-tight"
         >
-          Berkemah dengan Pesona <br className="hidden sm:inline" />
+          Berkemah dengan Pesona
+          <br />
           <span className="text-transparent bg-clip-text bg-linear-to-r from-amber-300 to-amber-500">
             Laut Selatan
           </span>
