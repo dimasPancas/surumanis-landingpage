@@ -12,16 +12,20 @@ const playfair = Playfair_Display({
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Pantai Surumanis Camp - Berkemah dengan Pesona Laut Selatan",
-  description: "Nikmati pengalaman camping premium di Pantai Surumanis, Kebumen. Paket lengkap dengan pemandangan laut selatan yang memukau.",
+  description:
+    "Nikmati pengalaman camping premium di Pantai Surumanis, Kebumen. Paket lengkap dengan pemandangan laut selatan yang memukau.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="id"
